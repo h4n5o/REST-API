@@ -25,6 +25,12 @@ mongoose.connect("mongodb+srv://is1384:Suntour1974@cluster0.gfu7x5x.mongodb.net/
     .then(() => console.log("Connected to MongoDB!"))
     .catch(err => console.error("Failed to connect to MongoDB", err));
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 // Start server
 app.listen(3000, () => {
     console.log("Backend is running on port 3000!");
