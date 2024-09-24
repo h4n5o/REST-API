@@ -1,38 +1,37 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
-    username: {
+const userSchema = new mongoose.Schema({
+    username:{
         type: String,
-        required: true,
-        min: 3,
+        require: true,
+        min: 2,
         max: 20,
         unique: true
     },
-    email: {
+    email:{
         type: String,
         required: true,
         max: 50,
         unique: true
     },
-    password: {
+    password:{
         type: String,
         required: true,
-        min: 8
-        
+        min: 6,
     },
     profilePicture: {
-        type:String,
-        default:""
+        type: String,
+        default: ""
     },
-    coverPicture: {
-        type:String,
+    coverPicture:{
+        type: String,
         default:""
     },
     followers: {
         type: Array,
         default: []
     },
-    followings: {
+    following: {
         type: Array,
         default: []
     },
@@ -40,11 +39,11 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    desc: {
+    desc:{
         type: String,
         max: 50
     },
-    city: {
+    city:{
         type: String,
         max: 50
     },
@@ -52,12 +51,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         max: 50
     },
-    relationship: {
+    relationship:{
         type: Number,
-        enum: [1,2,3],
-    },
+        enum:[1, 2, 3]
+    }
 },
-{timestamps:true}
+{timestamps: true}
 );
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", userSchema);

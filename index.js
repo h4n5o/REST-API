@@ -3,35 +3,27 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
-const morgan = require("morgan");
-const userRoute = require("./routes/users");
-const authRoute = require("./routes/auth");
+const morgan = require ("morgan");
+const userRoute = require("./Routes/users");
+const authRoute = require("./Routes/auth");
+const postRoute = require("./Routes/posts");
 
 dotenv.config();
 
-// Middleware
-
-app.use(express.json());
-app.use(helmet());
-app.use(morgan("common"));
-
-app.use("/api/users", userRoute)
-app.use("/api/auth", authRoute)
-
-
-
-// MongoDB connection
-mongoose.connect("mongodb+srv://is1384:Suntour1974@cluster0.gfu7x5x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-    .then(() => console.log("Connected to MongoDB!"))
-    .catch(err => console.error("Failed to connect to MongoDB", err));
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+mongoose.connect(process.env.MONGO_URL, )
+    .then(() => console.log('Connected Successfully'))
+    .catch((err) => { console.error(err); 
 });
 
-// Start server
-app.listen(3000, () => {
-    console.log("Backend is running on port 3000!");
+//Middleware//
+app.use(express.json());
+app.use(morgan("common"));
+app.use(helmet());
+
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/posts", postRoute);
+
+app.listen(3000,()=>{
+    console.log("Backend Server is running!")
 });
